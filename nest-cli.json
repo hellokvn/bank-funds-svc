@@ -1,4 +1,30 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/bank-funds-svc/src",
+  "monorepo": true,
+  "root": "apps/bank-funds-svc",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/bank-funds-svc/tsconfig.app.json"
+  },
+  "projects": {
+    "bank-funds-svc": {
+      "type": "application",
+      "root": "apps/bank-funds-svc",
+      "entryFile": "main",
+      "sourceRoot": "apps/bank-funds-svc/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/bank-funds-svc/tsconfig.app.json"
+      }
+    },
+    "command": {
+      "type": "application",
+      "root": "apps/command",
+      "entryFile": "main",
+      "sourceRoot": "apps/command/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/command/tsconfig.app.json"
+      }
+    }
+  }
 }
