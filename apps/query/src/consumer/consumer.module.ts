@@ -4,6 +4,6 @@ import { FundsTransferedModule } from './funds-transfered/funds-transfered.modul
 import { FundsWithdrawnModule } from './funds-withdrawn/funds-withdrawn.module';
 
 @Module({
-  imports: [FundsDepositedModule, FundsTransferedModule, FundsWithdrawnModule]
+  imports: [FundsDepositedModule, FundsTransferedModule, FundsWithdrawnModule],
 })
 export class ConsumerModule {}
