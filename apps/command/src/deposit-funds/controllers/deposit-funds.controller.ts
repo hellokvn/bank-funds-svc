@@ -5,7 +5,7 @@ import { DepositFundsCommand } from '@shared/commands/deposit-funds.command';
 import { DepositFundsDto } from './deposit-funds.dto';
 import { BANK_FUNDS_COMMAND_SERVICE_NAME, DepositFundsResponse } from '@command/common/proto/bank-funds-command.pb';
 
-@Controller('/api/v1/deposit-funds')
+@Controller()
 export class DepositFundsController {
   @Inject(CommandBus)
   private readonly commandBus: CommandBus;

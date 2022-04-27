@@ -3,8 +3,8 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FundsRepository } from '@query/common/repository/funds.repository';
-import { FundsTransferredConsumer } from './consumer/funds-transferred.consumer';
-import { FundsTransferredHandler } from './event/funds-transferred.handler';
+import { FundsReceivedConsumer } from './consumer/funds-received.consumer';
+import { FundsReceivedHandler } from './event/funds-received.handler';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { FundsTransferredHandler } from './event/funds-transferred.handler';
     ClientsModule.register([{ name: 'KAFKA_SERVICE', transport: Transport.KAFKA }]),
     TypeOrmModule.forFeature([FundsRepository]),
   ],
-  controllers: [FundsTransferredConsumer],
-  providers: [FundsTransferredHandler],
+  controllers: [FundsReceivedConsumer],
+  providers: [FundsReceivedHandler],
 })
-export class FundsTransferedModule {}
+export class FundsReceivedModule {}
