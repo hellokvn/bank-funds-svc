@@ -7,10 +7,13 @@ import { TransferFundsController } from './controllers/transfer-funds.controller
 import { FundsTransferredHandler } from './events/funds-transferred.handler';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BANK_ACCOUNT_QUERY_PACKAGE_NAME, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
+import { ReceiveFundsModule } from '@command/receive-funds/receive-funds.module';
+import { TransferFundsSaga } from './sagas/transfer-funds.saga';
 
 @Module({
   imports: [
     CqrsModule,
+    // ReceiveFundsModule,
     ClientsModule.register([
       {
         name: BANK_ACCOUNT_QUERY_SERVICE_NAME,
@@ -24,6 +27,6 @@ import { BANK_ACCOUNT_QUERY_PACKAGE_NAME, BANK_ACCOUNT_QUERY_SERVICE_NAME } from
     ]),
   ],
   controllers: [TransferFundsController],
-  providers: [TransferFundsHandler, FundsTransferredHandler, AccountEventProducer, EventSourcingHandler],
+  providers: [TransferFundsHandler, FundsTransferredHandler, AccountEventProducer, EventSourcingHandler, TransferFundsSaga],
 })
 export class TransferFundsModule {}

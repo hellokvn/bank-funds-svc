@@ -3,8 +3,8 @@ import { FundsDepositedEvent } from '@shared/events/funds-deposited.event';
 import { WithdrawFundsCommand } from '@shared/commands/withdraw-funds.command';
 import { FundsWithdrawnEvent } from '@shared/events/funds-withdrawn.event';
 import { ExtendedAggregateRoot } from 'nest-event-sourcing';
-import { TransferFundsCommand } from '@shared/commands';
-import { FundsTransferredEvent } from '@shared/events';
+import { ReceiveFundsCommand, TransferFundsCommand } from '@shared/commands';
+import { FundsReceivedEvent, FundsTransferredEvent } from '@shared/events';
 
 export class AccountAggregate extends ExtendedAggregateRoot {
   private balance: number;
@@ -56,5 +56,16 @@ export class AccountAggregate extends ExtendedAggregateRoot {
   public onFundsTransferredEvent(event: FundsTransferredEvent): void {
     this.id = event.id;
     this.setBalance(this.getBalance() - event.amount);
+  }
+
+  public receiveFunds(command: ReceiveFundsCommand): void | never {
+    const event: FundsReceivedEvent = new FundsReceivedEvent(command);
+    // logic
+    this.apply(event);
+  }
+
+  public onFundsReceivedEvent(event: FundsReceivedEvent): void {
+    this.id = event.id;
+    this.setBalance(this.getBalance() + event.amount);
   }
 }

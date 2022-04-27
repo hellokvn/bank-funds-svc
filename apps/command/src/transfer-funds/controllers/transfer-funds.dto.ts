@@ -3,12 +3,12 @@ import { IsNumber, IsUUID, Min } from 'class-validator';
 
 export class TransferFundsDto implements TransferFundsRequest {
   @IsUUID()
-  public fromId: string;
+  public readonly fromId: string;
 
   @IsNumber({ allowInfinity: false, allowNaN: false })
   @Min(1)
-  public amount: number;
+  public readonly amount: number;
 
   @IsUUID()
-  public toId: string;
+  public readonly toId: string;
 }

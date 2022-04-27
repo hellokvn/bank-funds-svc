@@ -1,5 +1,5 @@
 import { Inject, HttpException, HttpStatus } from '@nestjs/common';
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { TransferFundsCommand } from '@shared/commands/transfer-funds.command';
 import { EventSourcingHandler } from 'nest-event-sourcing';
 import { BankAccountQueryServiceClient, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
@@ -26,13 +26,25 @@ export class TransferFundsHandler implements ICommandHandler<TransferFundsComman
   }
 
   public async execute(command: TransferFundsCommand): Promise<any | never> {
-    const res: FindAccountResponse = await firstValueFrom(this.accountQSvc.findAccount({ id: command.id }));
+    let res: FindAccountResponse = await firstValueFrom(this.accountQSvc.findAccount({ id: command.id }));
 
     if (!res || !res.data) {
       throw new HttpException('Account not found!', HttpStatus.NOT_FOUND);
     }
 
+    res = await firstValueFrom(this.accountQSvc.findAccount({ id: command.getTargetedId() }));
+
+    console.log(command.getTargetedId(), { res });
+
+    if (!res || !res.data) {
+      throw new HttpException('Targeted account not found!', HttpStatus.NOT_FOUND);
+    }
+
     const aggregate: AccountAggregate = await this.eventSourcingHandler.getById(AccountAggregate, command.id);
+
+    if (command.getAmount() > aggregate.getBalance()) {
+      throw new HttpException('Withdraw declined, insufficient funds!', HttpStatus.CONFLICT);
+    }
 
     this.publisher.mergeObjectContext(aggregate);
     aggregate.transferFunds(command);
