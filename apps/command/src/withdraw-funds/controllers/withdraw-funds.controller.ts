@@ -1,11 +1,11 @@
 import { Body, Controller, HttpStatus, Inject } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { GrpcMethod } from '@nestjs/microservices';
+import { BANK_FUNDS_COMMAND_SERVICE_NAME, WithdrawFundsResponse } from '@command/common/proto/bank-funds-command.pb';
 import { WithdrawFundsCommand } from '@shared/commands/withdraw-funds.command';
 import { WithdrawFundsDto } from './withdraw-funds.dto';
-import { BANK_FUNDS_COMMAND_SERVICE_NAME, WithdrawFundsResponse } from '@command/common/proto/bank-funds-command.pb';
 
-@Controller('/api/v1/withdraw-funds')
+@Controller()
 export class WithdrawFundsController {
   @Inject(CommandBus)
   private readonly commandBus: CommandBus;
