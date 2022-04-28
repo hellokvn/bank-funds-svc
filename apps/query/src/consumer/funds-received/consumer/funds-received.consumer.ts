@@ -22,9 +22,8 @@ export class FundsReceivedConsumer implements OnApplicationBootstrap, OnApplicat
   }
 
   @MessagePattern('FundsReceivedEvent')
-  public fundsReceived(@Payload() { value }: KafkaMessage): any {
+  private fundsReceived(@Payload() { value }: KafkaMessage): void {
     const event: FundsReceivedEvent = plainToClass(FundsReceivedEvent, value);
-    console.log('on FundsReceivedEvent', { event });
 
     this.eventBus.publish(event);
   }

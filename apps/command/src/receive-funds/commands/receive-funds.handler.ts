@@ -1,12 +1,10 @@
-import { Inject, HttpException, HttpStatus } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { EventSourcingHandler } from 'nest-event-sourcing';
-import { BankAccountQueryServiceClient, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
-import { ClientGrpc } from '@nestjs/microservices';
-import { firstValueFrom } from 'rxjs';
-import { FindAccountResponse } from '../../common/proto/bank-account-query.pb';
-import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
+import { EventSourcingHandler } from 'nestjs-event-sourcing';
+
 import { ReceiveFundsCommand } from '@shared/commands';
+import { BankAccountQueryServiceClient } from '@command/common/proto/bank-account-query.pb';
+import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
 
 @CommandHandler(ReceiveFundsCommand)
 export class RceiveFundsHandler implements ICommandHandler<ReceiveFundsCommand> {

@@ -1,11 +1,15 @@
 import { Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { WithdrawFundsCommand } from '@shared/commands/withdraw-funds.command';
-import { EventSourcingHandler } from 'nest-event-sourcing';
-import { BankAccountQueryServiceClient, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
+import { EventSourcingHandler } from 'nestjs-event-sourcing';
 import { ClientGrpc } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { FindAccountResponse } from '../../common/proto/bank-account-query.pb';
+
+import { WithdrawFundsCommand } from '@shared/commands/withdraw-funds.command';
+import {
+  BankAccountQueryServiceClient,
+  BANK_ACCOUNT_QUERY_SERVICE_NAME,
+  FindAccountResponse,
+} from '@command/common/proto/bank-account-query.pb';
 import { AccountAggregate } from '@command/common/aggregates/account.aggregate';
 
 @CommandHandler(WithdrawFundsCommand)
@@ -25,7 +29,7 @@ export class WithdrawFundsHandler implements ICommandHandler<WithdrawFundsComman
     this.accountQSvc = this.client.getService<BankAccountQueryServiceClient>(BANK_ACCOUNT_QUERY_SERVICE_NAME);
   }
 
-  public async execute(command: WithdrawFundsCommand): Promise<any | never> {
+  public async execute(command: WithdrawFundsCommand): Promise<void | never> {
     const res: FindAccountResponse = await firstValueFrom(this.accountQSvc.findAccount({ id: command.id }));
 
     if (!res || !res.data) {

@@ -1,5 +1,6 @@
+import { BaseCommand } from 'nestjs-event-sourcing';
+
 import { WithdrawFundsDto } from '@command/withdraw-funds/controllers/withdraw-funds.dto';
-import { BaseCommand } from 'nest-event-sourcing';
 
 export class WithdrawFundsCommand extends BaseCommand {
   private amount: number;

@@ -1,5 +1,6 @@
+import { BaseEvent } from 'nestjs-event-sourcing';
+
 import { TransferFundsCommand } from '@shared/commands/transfer-funds.command';
-import { BaseEvent } from 'nest-event-sourcing';
 
 export class FundsTransferredEvent extends BaseEvent {
   public targetedId: string;

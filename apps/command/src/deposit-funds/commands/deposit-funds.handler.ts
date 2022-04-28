@@ -1,7 +1,7 @@
 import { Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { DepositFundsCommand } from '@shared/commands/deposit-funds.command';
-import { EventSourcingHandler } from 'nest-event-sourcing';
+import { EventSourcingHandler } from 'nestjs-event-sourcing';
 import { BankAccountQueryServiceClient, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
 import { ClientGrpc } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
@@ -25,7 +25,7 @@ export class DepositFundsHandler implements ICommandHandler<DepositFundsCommand>
     this.accountQSvc = this.client.getService<BankAccountQueryServiceClient>(BANK_ACCOUNT_QUERY_SERVICE_NAME);
   }
 
-  public async execute(command: DepositFundsCommand): Promise<any | never> {
+  public async execute(command: DepositFundsCommand): Promise<void | never> {
     const res: FindAccountResponse = await firstValueFrom(this.accountQSvc.findAccount({ id: command.id }));
 
     if (!res || !res.data) {

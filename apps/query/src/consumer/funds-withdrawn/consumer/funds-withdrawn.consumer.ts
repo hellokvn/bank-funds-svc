@@ -23,9 +23,8 @@ export class FundsWithdrawnConsumer implements OnApplicationBootstrap, OnApplica
   }
 
   @MessagePattern('FundsWithdrawnEvent')
-  public fundsWithdrawn(@Payload() { value }: KafkaMessage): any {
+  private fundsWithdrawn(@Payload() { value }: KafkaMessage): void {
     const event: FundsWithdrawnEvent = plainToClass(FundsWithdrawnEvent, value);
-    console.log('on FundsWithdrawnEvent', { event });
 
     this.eventBus.publish(event);
   }

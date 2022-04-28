@@ -1,10 +1,7 @@
-import { DepositFundsCommand } from '@shared/commands/deposit-funds.command';
-import { FundsDepositedEvent } from '@shared/events/funds-deposited.event';
-import { WithdrawFundsCommand } from '@shared/commands/withdraw-funds.command';
-import { FundsWithdrawnEvent } from '@shared/events/funds-withdrawn.event';
-import { ExtendedAggregateRoot } from 'nest-event-sourcing';
-import { ReceiveFundsCommand, TransferFundsCommand } from '@shared/commands';
-import { FundsReceivedEvent, FundsTransferredEvent } from '@shared/events';
+import { ExtendedAggregateRoot } from 'nestjs-event-sourcing';
+
+import { DepositFundsCommand, ReceiveFundsCommand, TransferFundsCommand, WithdrawFundsCommand } from '@shared/commands';
+import { FundsDepositedEvent, FundsReceivedEvent, FundsTransferredEvent, FundsWithdrawnEvent } from '@shared/events';
 
 export class AccountAggregate extends ExtendedAggregateRoot {
   private balance: number;

@@ -1,10 +1,11 @@
 import { Controller, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { GrpcMethod, Payload } from '@nestjs/microservices';
+
 import { Funds } from '@query/common/entity/funds.entity';
 import { BANK_FUNDS_QUERY_SERVICE_NAME, GetBalanceResponse } from '@query/common/proto/bank-funds-query.pb';
-import { GetBalanceQuery } from '../query/get-balancet.query';
 import { GetBalanceDto } from './get-balance.dto';
+import { GetBalanceQuery } from '../query/get-balancet.query';
 
 @Controller()
 export class GetBalanceController {

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { EventSourcingModule } from 'nest-event-sourcing';
+import { EventSourcingModule } from 'nestjs-event-sourcing';
+
 import { DepositFundsModule } from './deposit-funds/deposit-funds.module';
 import { ReceiveFundsModule } from './receive-funds/receive-funds.module';
 import { TransferFundsModule } from './transfer-funds/transfer-funds.module';

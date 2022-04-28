@@ -1,6 +1,6 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { Kafka, Producer } from 'kafkajs';
-import { BaseEvent } from 'nest-event-sourcing';
+import { BaseEvent } from 'nestjs-event-sourcing';
 
 @Injectable()
 export class AccountEventProducer implements OnModuleDestroy {

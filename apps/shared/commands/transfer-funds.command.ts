@@ -1,4 +1,5 @@
-import { BaseCommand } from 'nest-event-sourcing';
+import { BaseCommand } from 'nestjs-event-sourcing';
+
 import { TransferFundsDto } from '@command/transfer-funds/controllers/transfer-funds.dto';
 
 export class TransferFundsCommand extends BaseCommand {

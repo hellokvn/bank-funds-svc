@@ -1,9 +1,10 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FundsRepository } from '../../../common/repository/funds.repository';
-import { Funds } from '../../../common/entity/funds.entity';
+
 import { FundsReceivedEvent } from '@shared/events';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { Funds } from '@query/common/entity/funds.entity';
+import { FundsRepository } from '@query/common/repository/funds.repository';
 
 @EventsHandler(FundsReceivedEvent)
 export class FundsReceivedHandler implements IEventHandler<FundsReceivedEvent> {

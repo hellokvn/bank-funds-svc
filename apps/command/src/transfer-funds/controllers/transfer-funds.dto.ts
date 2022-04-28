@@ -1,5 +1,6 @@
-import { TransferFundsRequest } from '@command/common/proto/bank-funds-command.pb';
 import { IsNumber, IsUUID, Min } from 'class-validator';
+
+import { TransferFundsRequest } from '@command/common/proto/bank-funds-command.pb';
 
 export class TransferFundsDto implements TransferFundsRequest {
   @IsUUID()

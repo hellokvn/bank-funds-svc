@@ -1,4 +1,5 @@
-import { BaseCommand } from 'nest-event-sourcing';
+import { BaseCommand } from 'nestjs-event-sourcing';
+
 import { DepositFundsDto } from '@command/deposit-funds/controllers/deposit-funds.dto';
 
 export class DepositFundsCommand extends BaseCommand {

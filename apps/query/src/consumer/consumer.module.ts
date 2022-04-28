@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { FundsDepositedModule } from './funds-deposited/funds-deposited.module';
 import { FundsReceivedModule } from './funds-received/funds-received.module';
 import { FundsTransferredModule } from './funds-transfered/funds-transferred.module';

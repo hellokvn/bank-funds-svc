@@ -40,7 +40,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "kafkajs": "^1.16.0",
-    "nest-event-sourcing": "git+https://github.com/hellokvn/nest-event-sourcing.git",
+    "nestjs-event-sourcing": "^1.0.1",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

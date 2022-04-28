@@ -12,8 +12,6 @@ export class TransferFundsController {
 
   @GrpcMethod(BANK_FUNDS_COMMAND_SERVICE_NAME, 'TransferFunds')
   public async transferFunds(@Body() payload: TransferFundsDto): Promise<TransferFundsResponse | never> {
-    console.log('');
-    console.log('GRPC TransferFunds');
     if (payload.fromId === payload.toId) {
       throw new HttpException('Can not transfer money to the same account!', HttpStatus.CONFLICT);
     }

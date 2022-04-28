@@ -1,4 +1,5 @@
-import { BaseEvent } from 'nest-event-sourcing';
+import { BaseEvent } from 'nestjs-event-sourcing';
+
 import { DepositFundsCommand } from '@shared/commands/deposit-funds.command';
 
 export class FundsDepositedEvent extends BaseEvent {

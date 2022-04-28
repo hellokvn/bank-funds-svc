@@ -1,19 +1,18 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { EventSourcingHandler } from 'nest-event-sourcing';
+import { EventSourcingHandler } from 'nestjs-event-sourcing';
+
 import { AccountEventProducer } from '@command/common/producer/account-event.producer';
 import { TransferFundsHandler } from './commands/transfer-funds.handler';
 import { TransferFundsController } from './controllers/transfer-funds.controller';
 import { FundsTransferredHandler } from './events/funds-transferred.handler';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { BANK_ACCOUNT_QUERY_PACKAGE_NAME, BANK_ACCOUNT_QUERY_SERVICE_NAME } from '@command/common/proto/bank-account-query.pb';
-import { ReceiveFundsModule } from '@command/receive-funds/receive-funds.module';
 import { TransferFundsSaga } from './sagas/transfer-funds.saga';
 
 @Module({
   imports: [
     CqrsModule,
-    // ReceiveFundsModule,
     ClientsModule.register([
       {
         name: BANK_ACCOUNT_QUERY_SERVICE_NAME,
