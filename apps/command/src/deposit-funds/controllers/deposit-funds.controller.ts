@@ -13,8 +13,6 @@ export class DepositFundsController {
 
   @GrpcMethod(BANK_FUNDS_COMMAND_SERVICE_NAME, 'DepositFunds')
   public async depositFunds(@Body() payload: DepositFundsDto): Promise<DepositFundsResponse> {
-    console.log('');
-    console.log('GRPC DepositFunds');
     const command: DepositFundsCommand = new DepositFundsCommand(payload);
 
     await this.commandBus.execute(command);

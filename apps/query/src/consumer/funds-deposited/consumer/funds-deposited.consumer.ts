@@ -24,7 +24,7 @@ export class FundsDepositedConsumer implements OnApplicationBootstrap, OnApplica
   }
 
   @MessagePattern('FundsDepositedEvent')
-  private fundsDeposited(@Payload() { value }: KafkaMessage): any {
+  private fundsDeposited(@Payload() { value }: KafkaMessage): void {
     const event: FundsDepositedEvent = plainToClass(FundsDepositedEvent, value);
     console.log('on FundsDepositedEvent', { event });
 
