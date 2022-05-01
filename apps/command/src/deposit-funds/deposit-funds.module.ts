@@ -8,19 +8,24 @@ import { BANK_ACCOUNT_QUERY_PACKAGE_NAME, BANK_ACCOUNT_QUERY_SERVICE_NAME } from
 import { DepositFundsHandler } from './commands/deposit-funds.handler';
 import { DepositFundsController } from './controllers/deposit-funds.controller';
 import { FundsDepositedHandler } from './events/funds-deposited.handler';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     CqrsModule,
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: BANK_ACCOUNT_QUERY_SERVICE_NAME,
-        transport: Transport.GRPC,
-        options: {
-          url: '0.0.0.0:50051',
-          package: BANK_ACCOUNT_QUERY_PACKAGE_NAME,
-          protoPath: 'node_modules/bank-shared-proto/proto/bank-account-query.proto',
-        },
+        imports: [ConfigModule], //  TODO: rm
+        useFactory: (config: ConfigService) => ({
+          transport: Transport.GRPC,
+          options: {
+            url: config.get('BANK_ACCOUNT_QUERY_GRPC_URL'),
+            package: BANK_ACCOUNT_QUERY_PACKAGE_NAME,
+            protoPath: 'node_modules/bank-shared-proto/proto/bank-account-query.proto',
+          },
+        }),
+        inject: [ConfigService],
       },
     ]),
   ],
