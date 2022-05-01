@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  bank_funds_command_svc:
+    container_name: bank_funds_command_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-command
+    ports:
+      - 50054:50054
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+
+  bank_funds_query_svc:
+    container_name: bank_funds_query_svc
+    build:
+      context: .
+      dockerfile: Dockerfile-query
+    ports:
+      - 50053:50053
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    environment:
+      - IS_DOCKER=true
+
+networks:
+  default:
+    external:
+      name: bank_api_network
