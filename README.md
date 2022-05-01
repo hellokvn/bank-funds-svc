@@ -35,6 +35,10 @@ $ npm run start:dev command
 $ npm run start:dev query
 ```
 
+## Transfer Funds Flowchart
+
+![flowchart](https://raw.githubusercontent.com/hellokvn/bank-account-svc/master/.github/static/flowchart-transfer-funds.jpg)
+
 ## Author
 
 - [Kevin Vogel](https://medium.com/@hellokevinvogel)
