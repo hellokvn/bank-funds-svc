@@ -1,22 +1,27 @@
-import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { Inject, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Kafka, Producer } from 'kafkajs';
 import { BaseEvent } from 'nestjs-event-sourcing';
 
 @Injectable()
-export class AccountEventProducer implements OnModuleDestroy {
-  private readonly producer: Producer;
+export class AccountEventProducer implements OnModuleInit, OnModuleDestroy {
+  private producer: Producer;
 
-  constructor() {
+  @Inject(ConfigService)
+  private readonly config: ConfigService;
+
+  public async onModuleInit(): Promise<void> {
     const kafka: Kafka = new Kafka({
       clientId: 'BankFunds',
-      brokers: ['localhost:9092'],
+      brokers: [this.config.get('KAFKA_URL')],
     });
 
     this.producer = kafka.producer();
-    this.producer.connect();
+
+    await this.producer.connect();
   }
 
-  public onModuleDestroy() {
+  public onModuleDestroy(): void {
     this.producer.disconnect();
   }
 
