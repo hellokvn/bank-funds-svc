@@ -37,7 +37,7 @@ $ npm run start:dev query
 
 ## Transfer Funds Flowchart
 
-![flowchart](https://raw.githubusercontent.com/hellokvn/bank-account-svc/master/.github/static/flowchart-transfer-funds.jpg)
+![flowchart](https://raw.githubusercontent.com/hellokvn/bank-funds-svc/master/.github/static/flowchart-transfer-funds.jpg)
 
 ## Author
 
